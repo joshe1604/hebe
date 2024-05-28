@@ -5,9 +5,12 @@
  */
 package com.hebe.model;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,27 +19,34 @@ import javax.persistence.Table;
 
 /**
  *
- * @author corin
+ * @author joshe
  */
 @Entity
-@Table(name = "tusuario")
-public class Tusuario {
+@Table(name = "tpassword")
+public class Tpassword implements Serializable {
  
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name = "cusuario", nullable = false)
-    private String cusuario;
+    private static final long serialVersionUID = 1L;
+       
+    @EmbeddedId
+    private TpasswordPK id;
     
-    @Column(name = "alias")
-    private String alias;
-    
-    
+    @Column(name = "clave")
+    private String clave;
+        
     @Column(name = "estado")
     private String estado;
     
-    @Column(name = "ctipousuario")
-    private Long ctipousuario;
     
+    @Column(name = "palabraref")
+    private String palabraref;
+        
+    
+    @Column(name = "fdesde")
+    private Timestamp fdesde;
+    
+    @Column(name = "fhasta")
+    private Timestamp fhasta;
+       
     @Column(name = "activo")
     private String activo;
     
@@ -52,34 +62,43 @@ public class Tusuario {
     @Column(name = "fmodificacion")
     private Timestamp fmodificacion;
 
-    /**
-     * @return the cusuario
+    
+    
+    public Tpassword(TpasswordPK id, String clave, String estado, String palabraref, Timestamp fdesde, Timestamp fhasta) {
+        this.id = id;
+        this.clave = clave;
+        this.estado = estado;
+        this.palabraref = palabraref;
+        this.fdesde = fdesde;
+        this.fhasta = fhasta;
+    }
+
+     public Tpassword(String activo, String cusuariocreacion, Timestamp fcreacion, String cusuariomodificacion, Timestamp fmodificacion) {
+        this.activo = activo;
+        this.cusuariocreacion = cusuariocreacion;
+        this.fcreacion = fcreacion;
+        this.cusuariomodificacion = cusuariomodificacion;
+        this.fmodificacion = fmodificacion;
+    }
+
+    
+    public Tpassword() {
+    }
+    
+     /**
+     * @return the id
      */
-    public String getCusuario() {
-        return cusuario;
+    public TpasswordPK getId() {
+        return id;
     }
 
     /**
-     * @param cusuario the cusuario to set
+     * @param id the id to set
      */
-    public void setCusuario(String cusuario) {
-        this.cusuario = cusuario;
+    public void setId(TpasswordPK id) {
+        this.id = id;
     }
-
-    /**
-     * @return the alias
-     */
-    public String getAlias() {
-        return alias;
-    }
-
-    /**
-     * @param alias the alias to set
-     */
-    public void setAlias(String alias) {
-        this.alias = alias;
-    }
-
+    
     /**
      * @return the estado
      */
@@ -164,18 +183,37 @@ public class Tusuario {
         this.fmodificacion = fmodificacion;
     }
 
-    /**
-     * @return the ctipousuario
-     */
-    public Long getCtipousuario() {
-        return ctipousuario;
+   
+    public String getClave() {
+        return clave;
     }
 
-    /**
-     * @param ctipousuario the ctipousuario to set
-     */
-    public void setCtipousuario(Long ctipousuario) {
-        this.ctipousuario = ctipousuario;
+    public void setClave(String clave) {
+        this.clave = clave;
+    }
+
+    public String getPalabraref() {
+        return palabraref;
+    }
+
+    public void setPalabraref(String palabraref) {
+        this.palabraref = palabraref;
+    }
+
+    public Timestamp getFdesde() {
+        return fdesde;
+    }
+
+    public void setFdesde(Timestamp fdesde) {
+        this.fdesde = fdesde;
+    }
+
+    public Timestamp getFhasta() {
+        return fhasta;
+    }
+
+    public void setFhasta(Timestamp fhasta) {
+        this.fhasta = fhasta;
     }
     
 }
